@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lalusin Information Technology Colleges - Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="sidebar-logo">
+                <i class="bi bi-book"></i>
+                LITC Portal
+            </a>
+        </div>
+        <div class="d-flex flex-column h-100">
+            <div class="text-center mb-4">
+                <img src="assets/logo.png" alt="LITC Logo" class="img-fluid mb-3" style="max-width: 120px;">
+                <h4 class="mb-1">Welcome to LITC</h4>
+                <p class="text-muted">Please login to continue</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h3 class="mb-0">Login to Your Account</h3>
+                        <p class="text-muted mb-0">Student and Faculty Portal</p>
+                    </div>
+                    <div class="card-body">
+                        <ul class="nav nav-tabs" id="loginTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="student-tab" data-bs-toggle="tab" data-bs-target="#student" type="button" role="tab">Student Login</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="faculty-tab" data-bs-toggle="tab" data-bs-target="#faculty" type="button" role="tab">Faculty Login</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content mt-3" id="loginTabsContent">
+                            <div class="tab-pane fade show active" id="student" role="tabpanel">
+                                <form action="login_process.php" method="POST">
+                                    <input type="hidden" name="user_type" value="student">
+                                    <div class="mb-3">
+                                        <label for="studentId" class="form-label">Student ID</label>
+                                        <input type="text" class="form-control" id="studentId" name="username" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="studentPassword" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="studentPassword" name="password" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                                </form>
+                                <div class="text-center mt-3">
+                                    <a href="register.php?type=student">Register as New Student</a>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="faculty" role="tabpanel">
+                                <form action="login_process.php" method="POST">
+                                    <input type="hidden" name="user_type" value="faculty">
+                                    <div class="mb-3">
+                                        <label for="facultyId" class="form-label">Faculty ID</label>
+                                        <input type="text" class="form-control" id="facultyId" name="username" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="facultyPassword" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="facultyPassword" name="password" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                                </form>
+                                <div class="text-center mt-3">
+                                    <a href="register.php?type=faculty">Register as Faculty</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode">
+        <i class="bi bi-moon-stars"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const themeIcon = themeToggle.querySelector('i');
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeIcon.className = theme === 'light' ? 'bi bi-moon-stars' : 'bi bi-sun';
+        }
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.createElement('button');
+        mobileMenuToggle.className = 'btn btn-primary d-md-none position-fixed';
+        mobileMenuToggle.style.cssText = 'top: 1rem; left: 1rem; z-index: 1001;';
+        mobileMenuToggle.innerHTML = '<i class="bi bi-list"></i>';
+        document.body.appendChild(mobileMenuToggle);
+
+        mobileMenuToggle.addEventListener('click', () => {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
